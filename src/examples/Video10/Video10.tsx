@@ -4,13 +4,8 @@ import './Video10.css'
 export interface ITest {
         name: string;
         age: number;
+        city: string;
     }
-
-const Video10 = () => {
-
-    const [name, setName] = useState("");
-    const [age, setAge] = useState(0);
-    const [city, setCity] = useState(["Hà Nội", "Đà Nẵng", "Hồ Chí Minh"]);
 
     interface IUser {
         name: string;
@@ -18,11 +13,23 @@ const Video10 = () => {
         city: string;
     }
 
-    const [users, setUsers] = useState<IUser[]>([
-        { name: "Eric", age: 25, city: "Hà Nội" },
-        { name: "Eric1", age: 26, city: "Đà Nẵng" },
-        { name: "Eric2", age: 27, city: "Hồ Chí Minh" },
-    ])
+interface IProps {
+    defaultName?: string;
+    defaultAge?: number | string;
+    defaultCity?: string;
+}
+
+const Video10 = (props: IProps) => {
+
+    const { defaultName, defaultAge, defaultCity } = props;
+    
+    const [name, setName] = useState<string>(defaultName);
+    const [age, setAge] = useState<number | string>(defaultAge);
+    const [city, setCity] = useState<string[]>(["Hà Nội", "Đà Nẵng", "Hồ Chí Minh", "Cần Thơ"]);
+
+    const [citySelected, setCitySelected] = useState<string>(city[0]);
+
+    const [users, setUsers] = useState<IUser[]>([])
 
 
 
@@ -30,7 +37,20 @@ const Video10 = () => {
 
     const [isShowBtn, setIsShowBtn] = useState(false);
 
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const newUser = {
+            name: name,
+            age: age,
+            city: citySelected
+        }
+        setUsers([...users, newUser]);
+        setName('');
+        setAge('');
+    }
 
+    const handleOnchangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    }
 
     return (
         <>
@@ -38,22 +58,37 @@ const Video10 = () => {
             <div className="form-user">
                 <div>
                     <label >Name:</label><br />
-                    <input type="text" value="John" /><br />
+                    <input 
+                    type="text" 
+                    value={name}
+                    onChange={handleOnchangeName}
+                    /><br />
                 </div>
                 <div>
                     <label >Age:</label><br />
-                    <input type="text" value="Doe" /><br />
+                    <input 
+                    type="text" 
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                    /><br />
                 </div>
                 <div>
                     <label >City:</label><br />
-                    <select>
-                        <option>Hà Nội</option>
-                        <option>Đà Nẵng</option>
-                        <option>Hồ Chí Minh</option>
+                    <select
+                    onChange={(e) => setCitySelected(e.target.value)}
+                    >
+                        {city.map(item => {
+                            return (
+                                <option key={item} value={item}>{item}</option>
+                            )
+                        })}
                     </select>
                 </div>
 
-                <input type="submit" value="Submit" />
+                <input
+                type="submit"
+                value="Submit"
+                onClick={handleSubmit} />
             </div>
             <hr />
             <div>List Users:</div>
@@ -67,21 +102,15 @@ const Video10 = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Jill</td>
-                            <td>Smith</td>
-                            <td>50</td>
-                        </tr>
-                        <tr>
-                            <td>Eve</td>
-                            <td>Jackson</td>
-                            <td>94</td>
-                        </tr>
-                        <tr>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td>80</td>
-                        </tr>
+                        {users.map(user => {
+                            return (
+                                <tr key={user.name}>
+                                    <td>{user.name}</td>
+                                    <td>{user.age}</td>
+                                    <td>{user.city}</td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>

@@ -27,7 +27,11 @@ function App() {
         </p>
       </div>
       <div className="read-the-docs">
-        <Video10/>
+        <Video10
+        defaultAge={21}
+        defaultName="Turtle"
+        defaultCity="Hà Nội"
+        />
       </div>
     </>
   )
