@@ -25,7 +25,7 @@ const Video10 = (props: IProps) => {
     
     const [name, setName] = useState<string>(defaultName);
     const [age, setAge] = useState<number | string>(defaultAge);
-    const [city, setCity] = useState<string[]>(["Hà Nội", "Đà Nẵng", "Hồ Chí Minh", "Cần Thơ"]);
+    const [city, setCity] = useState<string[]>(["Hà Nội", "Đà Nẵng", "Hồ Chí Minh"]);
 
     const [citySelected, setCitySelected] = useState<string>(city[0]);
 
