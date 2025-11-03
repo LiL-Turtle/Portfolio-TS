@@ -1,6 +1,9 @@
+import { TypeAnimation } from 'react-type-animation';
+
+
 const HomeCV = () => {
     return (
-        <>
+       
         <div className="arlo_tm_section" id="home">
 					<div className="arlo_tm_hero_header_wrap">
 						<div className="arlo_tm_universal_box_wrap">
@@ -11,13 +14,35 @@ const HomeCV = () => {
 							<div className="content hero">
 								<div className="inner_content">
 									<div className="image_wrap">
-										<img src="img/hero/img.jpg" alt="hero" />
+										<img
+											src="img/hero/img.jpg"
+											alt="hero"
+											style={{ width: 300, height: 230, objectFit: 'cover', objectPosition: 'top', display: 'block' }}
+										/>
 									</div>
 									<div className="name_holder">
-										<h3>Alan <span>Michaelis</span></h3>
+										<h3>Nguyen Ngoc <span>Bao Thien</span></h3>
 									</div>
 									<div className="text_typing">
-										<p>I'm a <span className="arlo_tm_animation_text_word"></span></p>
+										<p>I'm a 
+										<> </>
+											<TypeAnimation
+												sequence={[
+													// Same substring at the start will only be typed out once, initially
+													'Freelancer',
+													2000, // wait 1s before replacing "Mice" with "Hamsters"
+													'UI/UX Designer',
+													2000,
+													'Web Developer',
+													2000,
+												]}
+												wrapper="span"
+												speed={50}
+												// style={{ fontSize: '2em', display: 'inline-block' }}
+												repeat={Infinity}
+												/>
+										
+										</p>
 									</div>
 								</div>
 							</div>
@@ -27,7 +52,6 @@ const HomeCV = () => {
 						</div>
 					</div>
 				</div>
-        </>
     )
 }
 export default HomeCV;
